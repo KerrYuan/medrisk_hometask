@@ -2,22 +2,21 @@ import { DashboardFilters } from "@/components/assessments/DashboardFilters";
 import { AssessmentTable } from "@/components/assessments/AssessmentTable";
 import { RoleSwitchNotice } from "@/components/assessments/RoleSwitchNotice";
 import { getAssessments } from "@/lib/api";
-import type { AssessmentStatus, RiskLevel, UserRole } from "@/types/assessment";
+import type { searchParams } from "@/types/queryParams";
 
 export default async function DashboardPage({
   searchParams,
 }: {
-  searchParams: Promise<{
-    riskLevel?: RiskLevel;
-    status?: AssessmentStatus;
-    search?: string;
-    ordering?: string;
-    role?: UserRole;
-  }>;
+  searchParams: Promise<searchParams>;
 }) {
   const params = await searchParams;
   const role = params.role === "admin" ? "admin" : "clinician";
-  const assessments = await getAssessments();
+  const assessments = await getAssessments({
+    risk_level: params.risk_level,
+    status: params.status,
+    search: params.search,
+    ordering: params.ordering,
+  });
 
   const total = assessments.length;
   const highRisk = assessments.filter(
