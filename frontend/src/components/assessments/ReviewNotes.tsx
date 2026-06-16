@@ -39,7 +39,7 @@ export function ReviewNotes({
         id: assessment.id,
         content: trimmed,
         role,
-        author: "Dr Example",
+        author: assessment.clinician,
       });
       setContent("");
       router.refresh();
