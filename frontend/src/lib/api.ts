@@ -2,6 +2,7 @@ import type {
   Assessment,
   AssessmentDetail,
   AssessmentStatus,
+  PaginatedResponse,
   UserRole,
   ReviewNote,
 } from "@/types/assessment";
@@ -68,10 +69,10 @@ async function request<T>(path: string, options?: FetchOptions): Promise<T> {
   return response.json() as Promise<T>;
 }
 
-export async function getAssessments(query: searchParams = {}): Promise<Assessment[]> {
+export async function getAssessments(query: searchParams = {}): Promise<PaginatedResponse<Assessment>> {
   const queryString = toQueryString(query);
   const path = `/assessments/${queryString ? `?${queryString}` : ""}`;
-  return request<Assessment[]>(path, { cache: "no-store" });
+  return request<PaginatedResponse<Assessment>>(path, { cache: "no-store" });
 }
 
 export async function getAssessment(id: string): Promise<AssessmentDetail> {
