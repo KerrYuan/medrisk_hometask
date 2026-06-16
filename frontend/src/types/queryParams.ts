@@ -7,6 +7,7 @@ export type searchParams = {
   status?: AssessmentStatus;
   search?: string;
   ordering?: DashboardOrdering;
+  page?: number;
   role?: UserRole;
 };
 

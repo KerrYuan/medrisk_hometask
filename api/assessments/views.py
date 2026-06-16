@@ -4,6 +4,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from .models import Assessment, AuditEvent, ReviewNote
+from .pagination import AssessmentPagination
 from .serializers import (
     AssessmentDetailSerializer,
     AssessmentListSerializer,
@@ -15,7 +16,7 @@ from .serializers import (
 
 class AssessmentViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Assessment.objects.prefetch_related("notes", "audit_events").all()
-    pagination_class = None
+    pagination_class = AssessmentPagination
 
     def get_serializer_class(self):
         if self.action == "retrieve":

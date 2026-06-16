@@ -53,7 +53,7 @@ export function DashboardFilters() {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      updateParams({ search: search || null }, true);
+      updateParams({ search: search || null, page: null }, true);
     }, 300);
 
     return () => clearTimeout(timeout);
@@ -77,7 +77,7 @@ export function DashboardFilters() {
             value={riskLevel}
             onChange={(event) => {
               const value = event.target.value;
-              updateParams({ risk_level: isRiskLevel(value) ? value : null });
+              updateParams({ risk_level: isRiskLevel(value) ? value : null, page: null });
             }}
             className="rounded-xl border border-slate-300 px-3 py-2 text-sm"
           >
@@ -93,7 +93,7 @@ export function DashboardFilters() {
             value={status}
             onChange={(event) => {
               const value = event.target.value;
-              updateParams({ status: isAssessmentStatus(value) ? value : null });
+              updateParams({ status: isAssessmentStatus(value) ? value : null, page: null });
             }}
             className="rounded-xl border border-slate-300 px-3 py-2 text-sm"
           >
@@ -111,7 +111,7 @@ export function DashboardFilters() {
             value={ordering}
             onChange={(event) => {
               const value = event.target.value;
-              updateParams({ ordering: isDashboardOrdering(value) ? value : null });
+              updateParams({ ordering: isDashboardOrdering(value) ? value : null, page: null });
             }}
             className="rounded-xl border border-slate-300 px-3 py-2 text-sm"
           >
