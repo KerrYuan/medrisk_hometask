@@ -5,6 +5,8 @@ import type {
   UserRole,
   ReviewNote,
 } from "@/types/assessment";
+import { toQueryString } from "@/lib/queryParams";
+import {searchParams} from "@/types/queryParams";
 
 const CLIENT_API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000/api";
 const INTERNAL_API_BASE_URL = process.env.NEXT_INTERNAL_API_BASE_URL;
@@ -66,15 +68,10 @@ async function request<T>(path: string, options?: FetchOptions): Promise<T> {
   return response.json() as Promise<T>;
 }
 
-export type AssessmentQuery = {
-  riskLevel?: string;
-  status?: string;
-  search?: string;
-  ordering?: string;
-};
-
-export async function getAssessments(_query: AssessmentQuery = {}): Promise<Assessment[]> {
-  return request<Assessment[]>(`/assessments/`, { cache: "no-store" });
+export async function getAssessments(query: searchParams = {}): Promise<Assessment[]> {
+  const queryString = toQueryString(query);
+  const path = `/assessments/${queryString ? `?${queryString}` : ""}`;
+  return request<Assessment[]>(path, { cache: "no-store" });
 }
 
 export async function getAssessment(id: string): Promise<AssessmentDetail> {
