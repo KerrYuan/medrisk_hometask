@@ -38,6 +38,7 @@ export function toQueryString(query: searchParams = {}): string {
   if (query.status) params.set("status", query.status);
   if (query.search) params.set("search", query.search);
   if (query.ordering) params.set("ordering", query.ordering);
+  if (query.page) params.set("page", String(query.page));
   if (query.role) params.set("role", query.role);
 
   return params.toString();
